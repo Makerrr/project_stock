@@ -18,11 +18,11 @@ browser=webdriver.Chrome(path)
 # (3)访问网站
 base_url_lst = [
 "https://finance.eastmoney.com/a/csygc_{}.html",
-# "https://biz.eastmoney.com/a/csyzx_{}.html",
-# "https://finance.eastmoney.com/a/cjjsp_{}.html",
-# "https://finance.eastmoney.com/a/ccyts_{}.html",
-# "https://finance.eastmoney.com/a/cgspl_{}.html",
-# "https://enterprise.eastmoney.com/a/ccyyj_{}.html"
+"https://biz.eastmoney.com/a/csyzx_{}.html",
+"https://finance.eastmoney.com/a/cjjsp_{}.html",
+"https://finance.eastmoney.com/a/ccyts_{}.html",
+"https://finance.eastmoney.com/a/cgspl_{}.html",
+"https://enterprise.eastmoney.com/a/ccyyj_{}.html"
 ]
 # page_source获取网页源码
 # browser.get(url)
@@ -45,7 +45,6 @@ def get_news_url(base_url,page):
     html = etree.HTML(content) 
     url_lst = html.xpath('//p[@class="title"]/a/@href')
     title_lst = [url.strip() for url in html.xpath('//p[@class="title"]/a/text()')] 
-   
     return dict(zip(title_lst,url_lst))
 
 title_url_dict = {}
@@ -55,6 +54,7 @@ for base_url in tqdm(base_url_lst):
         print(page)
         title_url_dict.update(get_news_url(base_url,page))
         
+print(title_url_dict)
 
 # DataFrame表格型数据结构
 #   title_url_dict={'中金2023年造纸行业展望': '111', '中天国富证券': '2222'}
@@ -67,18 +67,16 @@ title_url_df["html"] = ""
 
 for title in tqdm(title_url_df.index):
     url_i = title_url_df.loc[title,"url"]
-    #获取具体文章的网页源代码 
+    #获取具体文章的网页源代码
     html_i =  requests.get(url_i).content.decode('utf-8') 
-    
     # 写入数据
-    title_url_df.loc[title,"html"]=html_i
+    title_url_df.loc[title,"html"] = html_i
     time.sleep(0.5)
 
-# print(title_url_df.loc[title,"html"])
 # import pdb;pdb.set_trace() 
 print(title_url_df)
-# with open("title_url_df.pkl","wb") as f: 
-#     pkl.dump(title_url_df,f)  #dump方法将变量保存在pickle文件中 
+with open("title_url_df.pkl","wb") as f:
+    pkl.dump(title_url_df,f)
 
 
 # # 测试 html网页的内容
@@ -91,7 +89,6 @@ print(title_url_df)
 # html = etree.HTML(res)  #分析HTML，返回DOM根节点
 # tit = html.xpath('//div[@class="title"]/text()')
 # # publish_time=html.xpath('//div[@class="item"]/text()')
-#  publish_time=html_i.xpath('//div[@class="item"]/text()')
 # publish_time=html.xpath('/html/body/div[1]/div[2]/div[3]/div[3]/div[1]/div[1]/text()')
 # source=html.xpath('/html/body/div[1]/div[2]/div[3]/div[3]/div[1]/div[2]/text()')
 # abstract_txt=html.xpath('//div[@class="txt"]/text()')
