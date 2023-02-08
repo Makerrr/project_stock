@@ -101,7 +101,7 @@ for title in tqdm(title_url_df.index):
     for info in infos:
         info_lst.append(info.text.strip())
 
-    if len(info_lst):
+    if len(info_lst)>=2:
         time_info=info_lst[0]
         source=info_lst[1].replace('\n','').replace('\r','')
     else:
