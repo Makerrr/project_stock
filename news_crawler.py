@@ -25,21 +25,21 @@ base_url_lst = [
 # "https://enterprise.eastmoney.com/a/ccyyj_{}.html"
 
 
-# "https://stock.eastmoney.com/a/cscjh_{}.html",#T
+"https://stock.eastmoney.com/a/cscjh_{}.html",#T
 
 # "https://finance.eastmoney.com/a/cgsxw_{}.html",#T
 
 # "https://biz.eastmoney.com/a/csyzx_{}.html", #T
 
-"https://finance.eastmoney.com/a/cgnjj_{}.html",
+# "https://finance.eastmoney.com/a/cgnjj_{}.html",
 
 # "https://finance.eastmoney.com/a/cgjjj_{}.html",
 
-# "https://finance.eastmoney.com/a/ccjxw_{}.html",
+#"https://finance.eastmoney.com/a/ccjxw_{}.html",#T
 
-# "https://finance.eastmoney.com/a/ccjdd_{}.html",
+# "https://finance.eastmoney.com/a/ccjdd_{}.html",#T
 
-# "https://finance.eastmoney.com/a/czqyw_{}.html"
+# "https://finance.eastmoney.com/a/czqyw_{}.html" #T
 ]
 # page_source获取网页源码
 # browser.get(url)
@@ -120,7 +120,7 @@ for title in tqdm(title_url_df.index):
     title_url_df.loc[title,"article"]=article
     time.sleep(0.5)
     
-
+title_url_df = title_url_df.reset_index()
 # import pdb;pdb.set_trace() 
 # 把数据保存到pickle文件中
 print(title_url_df)
